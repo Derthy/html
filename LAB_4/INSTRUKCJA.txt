@@ -1,0 +1,13 @@
+HARMONOGRAM ZAJĘĆ
+Zaprojektuj aplikację, która wyświetlać będzie tygdniowy harmonogram zajęć dla wybranych sal (albo wykładowców).
+
+Aplikacja powinna pozwalać na:
+1. Dodawanie nowych zajęć w wolnych godzinach.
+2. Edytowanie już dodanych zajęć.
+3. Usuwanie dodanych zajęć.
+4. Wyświetlanie grafiku.
+
+Do realizacji zadań użyj technologii AJAX, CSS'a i dowolnych bibliotek js. 
+
+Aplikacja nie musi działać na serwerze [mockup odpowiedzi ajax]. Jeżli zdecydują się Państwo na postawienie serwera,
+zadanie sprawdzane będzie lokalnie na Państwa komputerach.
