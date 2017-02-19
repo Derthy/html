@@ -26,6 +26,7 @@
                 <h4 class="modal-title" id="myModalLabel">Add new entry</h4>
               </div>
               <div class="modal-body">
+                <p id="ID" hidden></p>
                 <input type="text" id="title" class="form-control" placeholder="Title">
                 <textarea id="desc" class="form-control" rows="3" placeholder="Description"></textarea>
                 <form class="form-inline">
@@ -47,7 +48,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button onclick="addElement()" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                <button onclick="insert()" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
               </div>
             </div>
           </div>

@@ -60,21 +60,36 @@ function createTable(){
 
 }
 
-function addElement(){
-    var lenght = document.getElementById("EndHour").value - document.getElementById("BeginHour").value;
+function insert(){
+    var begin = document.getElementById("BeginHour").value;
+    var end = document.getElementById("EndHour").value;
+    var lenght = end - begin;
     var cell = days.indexOf(document.getElementById("Day").value)+1;
     var margin = (document.getElementById("BeginHour").value - 8)*300;
-    //document.getElementById("2x8").innerHTML = cell;
+    var day = document.getElementById("Day").value;
+    var title = document.getElementById("title").value;
+    var desc = document.getElementById("desc").value;
 
     var htmlValue = document.getElementById(cell+"x8").outerHTML;
 
     if(lenght>0)
-    document.getElementById(cell+"x8").innerHTML = htmlValue + "<button id=\"added\" style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">Save changes</button>";
+    document.getElementById(cell+"x8").innerHTML = htmlValue + "<button style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">"+title+"</button>";
+
+    $.ajax({
+        type: "POST",
+        url: "server.php?p=insert",
+        data: "TITLE="+title+"&DESCRIPTION="+desc+"&BEGIN_TIME="+begin+"&END_TIME="+end,
+        success: function(msg){
+            alert("GUT!");
+        }
+    });
+}
+
+function addElement(lenght,cell,margin,id){
+    var htmlValue = document.getElementById(cell+"x8").outerHTML;
+    document.getElementById(cell+"x8").innerHTML = htmlValue + "<button id="+id+" style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">Save changes</button>";
 }
 
 function tmp(){
-    document.getElementById("2x8").innerHTML = "<button style=\"width: 600px\" type=\"button\" class=\"btn btn-primary\">Save changes</button><button style=\"width: 600px;margin-left:620px\" type=\"button\" class=\"btn btn-primary\">Save changes</button>";
-    var value = document.getElementById("2x8").outerHTML;
-    document.getElementById("2x8").innerHTML = value + "<button id=\"added\" style=\"width: 600px;margin-left:620px\" type=\"button\" class=\"btn btn-primary\">Save changes</button>";
     document.getElementById("added").remove();
 }
