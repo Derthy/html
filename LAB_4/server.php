@@ -7,37 +7,34 @@
 	$database = 'calendar'; //'produkty'
 	$db = new PDO('mysql:host='.$mysql_host.';dbname='.$database, $username, $password );
 
-	// $page = isset($_GET[ 'p' ])?$_GET[ 'p' ]:'';
-	// if( $page=='insert' ){
-	// 	$TITLE = $_POST['TITLE'];
-	// 	$DESCRIPTION = $_POST['DESCRIPTION'];
-	// 	$BEGIN_TIME = $_POST['BEGIN_TIME'];
-	// 	$END_TIME = $_POST['END_TIME'];
-	// 	$stmt = $db->prepare("INSERT INTO timetable (TITLE,DESCRIPTION,BEGIN_TIME,END_TIME) VALUES (?,?,?,?)");
-	// 	$stmt->bindParam(1,$TITLE);
-	// 	$stmt->bindParam(2,$DESCRIPTION);
-	// 	$stmt->bindParam(3,$BEGIN_TIME);
-	// 	$stmt->bindParam(4,$END_TIME);
-	// 	$stmt->execute();
-	// }
-	// else if($page=='update'){
-
-	// }
-	// else if($page=='delete'){
-
-	// }
-	// else{
-
-	// }
-
+	$page = isset($_GET[ 'p' ])?$_GET[ 'p' ]:'';
+	if( $page=='insert' ){
 		$TITLE = $_POST['TITLE'];
 		$DESCRIPTION = $_POST['DESCRIPTION'];
+		$DAY = $_POST['DAY'];
 		$BEGIN_TIME = $_POST['BEGIN_TIME'];
 		$END_TIME = $_POST['END_TIME'];
-		$stmt = $db->prepare("INSERT INTO timetable (TITLE,DESCRIPTION,BEGIN_TIME,END_TIME) VALUES (?,?,?,?)");
+		$stmt = $db->prepare("INSERT INTO timetable (TITLE,DESCRIPTION,DAY,BEGIN_TIME,END_TIME) VALUES (?,?,?,?,?)");
 		$stmt->bindParam(1,$TITLE);
 		$stmt->bindParam(2,$DESCRIPTION);
-		$stmt->bindParam(3,$BEGIN_TIME);
-		$stmt->bindParam(4,$END_TIME);
+		$stmt->bindParam(3,$DAY);
+		$stmt->bindParam(4,$BEGIN_TIME);
+		$stmt->bindParam(5,$END_TIME);
 		$stmt->execute();
+	}
+	else if($page=='update'){
+
+	}
+	else if($page=='delete'){
+
+	}
+	else{
+        
+        $stmt = $db->prepare("SELECT * FROM timetable");
+        $stmt->execute();
+        while($row = $stmt->fetch()){
+        	$timetable[] = [ 'ID' => $row['ID'], 'TITLE' => $row['TITLE'],'DESCRIPTION' => $row['DESCRIPTION'], 'DAY' => $row['DAY'],'BEGIN_TIME' => $row['BEGIN_TIME'], 'END_TIME' => $row['END_TIME'] ];
+        }
+        echo json_encode($timetable);
+	}
 ?>

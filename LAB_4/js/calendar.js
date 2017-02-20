@@ -15,14 +15,14 @@ $(document).ready(function(){
 
     for(i=8;i<19;i++){
         if(i<10)
-            $('#BeginHour').append("<option>0"+i+"</option>");
+            $('#BeginHour').append("<option>"+i+"</option>");
         else
             $('#BeginHour').append("<option>"+i+"</option>");
     }
     
     for(i=8;i<19;i++){
         if(i<10)
-            $('#EndHour').append("<option>0"+i+"</option>");
+            $('#EndHour').append("<option>"+i+"</option>");
         else
             $('#EndHour').append("<option>"+i+"</option>");
     }
@@ -32,7 +32,7 @@ $(document).ready(function(){
     }
 
     createTable();
-    tmp();
+    view();
 });
 
 function createTable(){
@@ -61,28 +61,28 @@ function createTable(){
 }
 
 function insert(){
-    var begin = 8;
+    var begin = document.getElementById("BeginHour").value;
     var end = document.getElementById("EndHour").value;
     var lenght = end - begin;
     var cell = days.indexOf(document.getElementById("Day").value)+1;
     var margin = (document.getElementById("BeginHour").value - 8)*300;
-    var day = document.getElementById("Day").value;
     var title = document.getElementById("title").value;
     var desc = document.getElementById("desc").value;
 
     var htmlValue = document.getElementById(cell+"x8").outerHTML;
 
-    if(lenght>0)
-    document.getElementById(cell+"x8").innerHTML = htmlValue + "<button style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">"+title+desc+begin+end+"</button>";
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: "D:\STUDIA\MGR\BBIU\html\LAB_4\server.php",
-    //     data: "TITLE="+"asd"+"&DESCRIPTION="+"asd"+"&BEGIN_TIME="+8+"&END_TIME="+10,
-    //     success: function(msg){
-    //         alert("GUT!");
-    //     }
-    // });
+    //if(lenght>0)
+    //document.getElementById(cell+"x8").innerHTML = htmlValue + "<button style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">"+title+desc+begin+end+"</button>";
+    
+    var data = {TITLE:title,DESCRIPTION:desc,DAY:cell,BEGIN_TIME: begin, END_TIME: end}; 
+    $.ajax({
+        type: "POST",
+        url: "server.php?p=insert",
+        data: data,
+        success: function(msg){
+            view()
+        }
+    });
 }
 
 function addElement(lenght,cell,margin,id){
@@ -90,20 +90,30 @@ function addElement(lenght,cell,margin,id){
     document.getElementById(cell+"x8").innerHTML = htmlValue + "<button id="+id+" style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">Save changes</button>";
 }
 
-function tmp(){
+function view(){
+
     //document.getElementById("added").remove();
-    var data = {TITLE:"asd",DESCRIPTION:"asd",BEGIN_TIME: "8", END_TIME: "10"}; //Array 
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "server.php",
-        data: data,
-            success: function(data, textStatus, jqXHR)
-            {
-                //data - response from server
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-         
+        success: function(data){
+            var tmp = JSON.parse(data)
+            for (var x in tmp){
+              if (tmp.hasOwnProperty(x)){
+                var begin = tmp[x]['BEGIN_TIME'];
+                var end = tmp[x]['END_TIME'];
+                var lenght = end - begin;
+                var cell = tmp[x]['DAY'];
+                var title = tmp[x]['TITLE'];
+                var id = tmp[x]['ID'];
+                var margin = (begin - 8)*300;
+
+                var htmlValue = document.getElementById(cell+"x8").outerHTML;
+
+                if(document.getElementById(id) == null)
+                document.getElementById(cell+"x8").innerHTML = htmlValue + "<button id="+id+" style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">"+title+"</button>";
+              }
             }
+        }
     });
 }
