@@ -32,7 +32,7 @@ $(document).ready(function(){
     }
 
     createTable();
-
+    tmp();
 });
 
 function createTable(){
@@ -61,7 +61,7 @@ function createTable(){
 }
 
 function insert(){
-    var begin = document.getElementById("BeginHour").value;
+    var begin = 8;
     var end = document.getElementById("EndHour").value;
     var lenght = end - begin;
     var cell = days.indexOf(document.getElementById("Day").value)+1;
@@ -73,16 +73,16 @@ function insert(){
     var htmlValue = document.getElementById(cell+"x8").outerHTML;
 
     if(lenght>0)
-    document.getElementById(cell+"x8").innerHTML = htmlValue + "<button style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">"+title+"</button>";
+    document.getElementById(cell+"x8").innerHTML = htmlValue + "<button style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">"+title+desc+begin+end+"</button>";
 
-    $.ajax({
-        type: "POST",
-        url: "server.php?p=insert",
-        data: "TITLE="+title+"&DESCRIPTION="+desc+"&BEGIN_TIME="+begin+"&END_TIME="+end,
-        success: function(msg){
-            alert("GUT!");
-        }
-    });
+    // $.ajax({
+    //     type: "POST",
+    //     url: "D:\STUDIA\MGR\BBIU\html\LAB_4\server.php",
+    //     data: "TITLE="+"asd"+"&DESCRIPTION="+"asd"+"&BEGIN_TIME="+8+"&END_TIME="+10,
+    //     success: function(msg){
+    //         alert("GUT!");
+    //     }
+    // });
 }
 
 function addElement(lenght,cell,margin,id){
@@ -91,5 +91,19 @@ function addElement(lenght,cell,margin,id){
 }
 
 function tmp(){
-    document.getElementById("added").remove();
+    //document.getElementById("added").remove();
+    var data = {TITLE:"asd",DESCRIPTION:"asd",BEGIN_TIME: "8", END_TIME: "10"}; //Array 
+    $.ajax({
+        type: "POST",
+        url: "server.php",
+        data: data,
+            success: function(data, textStatus, jqXHR)
+            {
+                //data - response from server
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+         
+            }
+    });
 }
