@@ -1,0 +1,185 @@
+<html>
+
+	<head>
+	
+	</head>
+	
+	<body>
+		<input type='number' id='size' size='2' value='4' />
+		<input type='button' onclick='letsRoll()' value='Start' />
+		<input type='button' onmouseover='cheatStart()' onmouseout='cheatEnd()' value='Cheat' /> 
+		<br/>
+		<div id='board' name='board'>
+		
+			<table id='boardTable'>
+			
+			</table>
+		
+		</div>
+	
+	</body>
+
+</html>
+
+<script>
+
+var czegoTuKurwaSzukasz = "Szubi";
+var board = document.getElementById('board');
+var boardTable;
+var size;
+var firstField = null;
+var secondField = null;
+var fieldsValues;
+var winCheck;
+
+function cheatStart() {
+
+	for (var i = 0 ; i < size ; i++) {
+		for (var j = 0 ; j < size ; j++) {
+			document.getElementById(i+'.'+j).value = fieldsValues[i][j];
+		}
+	}
+
+} 
+function cheatEnd() {
+
+	for (var i = 0 ; i < size ; i++) {
+		for (var j = 0 ; j < size ; j++) {
+			var cheat = document.getElementById(i+'.'+j);
+			if (cheat == firstField || cheat == secondField || cheat.hasAttribute('disabled')) continue;
+			cheat.value = "";
+		}
+	}
+
+} 
+
+function letsRoll() {
+	var tempSize = document.getElementById('size').value;
+	if (tempSize < 2 || tempSize > 16 || tempSize%2>0) {
+		window.alert("Nie.");
+		return;
+	}
+	size = tempSize; 
+	winCheck = (size*size)/2;
+	chosenField = null;
+	fieldsValues = gimmeDaValues();
+	board.innerHTML = "";
+	board.appendChild(gimmeDaTable());
+
+}
+
+function gimmeDaTable() {
+
+	var table = document.createElement('table');
+	var tbody = document.createElement('tbody');
+
+	for (var i = 0 ; i < size ; i++) {
+	
+		var column = document.createElement('tr');
+	
+		for (var j = 0 ; j < size ; j++) {
+		
+			var row = document.createElement('td');
+			row.innerHTML = gimmeDaField(i,j);
+			column.appendChild(row);
+		
+		}
+		
+		tbody.appendChild(column);
+	
+	}
+	
+	table.appendChild(tbody);
+	return table;
+
+}
+
+function gimmeDaField(column, row) {
+
+	return "<input type='button' id='"+column+"."+row+"' onclick='check("+column+", "+row+")' style='height: 75px; width: 75px' />";
+
+}
+
+
+function check(column, row) {
+
+	if (firstField != null && secondField != null && firstField.value != secondField.value) {
+		firstField.value = "";
+		firstField = null;
+		secondField.value = "";
+		secondField = null;
+	}
+
+	if (firstField == null) {
+		firstField = document.getElementById(column+'.'+row);
+		firstField.value = fieldsValues[column][row];
+		firstField.setAttribute('disabled', true);
+	} else {
+		secondField = document.getElementById(column+'.'+row);
+		secondField.value = fieldsValues[column][row];
+		if (firstField.value === secondField.value) {
+			firstField.style.opacity = "0";
+			secondField.style.opacity = "0";
+			firstField = null;
+			secondField = null;
+			winCheck--;
+		} else {
+			firstField.removeAttribute('disabled');
+		}
+	}
+	
+	if (winCheck == 0) {
+		window.alert("Gratki :v")
+	}
+
+}
+
+function gimmeDaValues() {
+
+	var sexiArray = new Array();
+	for (var i = 1 ; i <= (size*size)/2 ; i++) {
+	
+		sexiArray.push(i);
+		sexiArray.push(i);
+	
+	}
+	sexiArray = doTheDirtyStuffWithDaArray(sexiArray);
+	return addTheDimensionPls(sexiArray);
+
+}
+
+function doTheDirtyStuffWithDaArray(array) {
+
+	for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+
+}
+
+function addTheDimensionPls(array) {
+
+	var whereAreWe = 0;
+	var twoDimArray = [];
+	for (var i = 0 ; i < size ; i++) {
+		twoDimArray.push(new Array());
+	}
+	for (var i = 0 ; i < size ; i++) {
+	
+		for (var j = 0 ; j < size ; j++) {
+		
+			twoDimArray[i][j] = array[whereAreWe];
+			whereAreWe++;
+		
+		}
+	
+	}
+	
+	return twoDimArray;
+
+}
+
+</script>

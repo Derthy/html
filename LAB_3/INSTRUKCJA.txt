@@ -1,0 +1,10 @@
+Używając HTML5, CSS, JS (bez bibliotek) napisz prostą grę MEMO:
+1. Plansza składa się z x na y kafelków (jedna plansza sprite, łatwa w modyfikacji konfiguracja);
+2. Kliknięcie na kafelek odsłania go;
+3. Jeśli oba odsłonięte kafelki są takie same, powinny one zostać usunięte z planszy;
+4. Jeśli odsłonięte kafelki są różne, powinny zostać ponownie zasłonięte, a licznik prób zwiększony;
+5. Gra konczy się z chwilą usunięcia wszystkich kafelków z planszy;
+6. Urozmaicenia i ciekawe pomysły będą dodatkowo punktowane.
+
+W razie problemów można skorzystać (nie kopiować!) z:
+http://kursjs.pl/kurs/gry/memory.html

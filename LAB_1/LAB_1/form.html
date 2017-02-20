@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasia</title>
+    <link rel="stylesheet" type="text/css" href="css_form/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css_form/main_form.css">
+    
+    <script type="text/javascript"> 
+        function make_blank(){
+            document.form1.type.value="";
+        }
+    </script>
+</head>
+<body>
+    
+    <section id="formularz">
+        <p class="naglowek"><b>Sign up Form</b></p>
+        <section id="left_panel">
+            <form class="form-group">
+                <label >Imię:</label><br>
+                <input type="text" class="form-control" value="Imię" onclick="make_blank();">
+                <label >Link do portfolio:</label><br>
+                <input type="text" class="form-control" value="Adres URL" onclick="make_blank();">
+                <label >Podaj swojego maila:</label><br>
+                <input type="text" class="form-control" value="Twój adres e-mail" onclick="make_blank();">
+                <label> Ulubiony kolor: </label>
+                <input type="color" class="form-control" style="width: 50px">
+                <label> Jaki okres zatrudnienia Cię interesuje (w latach)</label>
+                <input type ="range" max="20" min="0"
+                    onchange="document.getElementById('rangeValLabel').innerHTML = this.value;"
+                    step="1" name="rangeVal" id="rangeVal" value="200">
+                </input>
+                <em id="rangeValLabel" style="font-style: normal;"></em>
+            </form>
+        </section>
+        <section id="right_panel">
+            <form class="form-group">
+                <label >Nazwisko:</label><br>
+                <input type="text" class="form-control" value="Nazwisko" onclick="make_blank();" disabled>
+                <label >Numer telefonu:</label><br>
+                <input type="text" class="form-control" value="Twój numer telefonu" onclick="make_blank();">
+                <label >Podaj wartość PI:</label><br>
+                <input type="text" class="form-control" value="Wartość PI" onclick="make_blank();">
+                <label >Twoja data urodzenia:</label><br>
+                <input type="text" class="form-control" value="rrrr-mm-dd" onclick="make_blank();">
+            </form>
+        </section>
+        <section id="bottom_panel">
+            <form class="form-group">
+                <label>Miasto:</label>
+                <select class="form-control">
+                    <option>Łódź</option>
+                    <option>Poznań</option>
+                    <option>Wrocław</option>
+                    <option>Warszawa</option>
+                    <option>Kraków</option>
+                    <option>Grójec</option>
+                    <option>Radom</option>
+                </select>
+            </form>
+            <form id="left_panel" style="margin-bottom: 0">
+                <label> Czy interesuje Cię praca zdalna?</label><br>
+                <label class="radio-inline"><input type="radio" name="optradio">Tak</label>
+                <label class="radio-inline"><input type="radio" name="optradio">Nie</label><br>
+            </form>
+            <form id="right_panel" style="margin-bottom: 0">
+                <label>Jakie znasz języki?</label><br>
+                <label class="radio-inline"><input type="radio" name="optradio">Angielski</label>
+                <label class="radio-inline"><input type="radio" name="optradio">Niemiecki</label><br>
+                </form>
+            <label>Opisz swoje doświadczenie:</label>
+            <textarea class="form-control" rows="5"></textarea>
+            <label >Język programowania:</label><br>
+            <input type="text" class="form-control" onclick="make_blank();">
+            <label >Podaj hasło jakie chcesz mieć:</label><br>
+            <input type="password" class="form-control" onclick="make_blank();">
+            <label >Upload zdjęcia:</label><br>
+            <input type="file" class="form-control" onclick="make_blank();">
+            <button type="button" class="btn-lg btn-danger">Wyślij</button>
+        </section>
+    </section>
+</body>
+</html>

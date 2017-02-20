@@ -1,0 +1,5 @@
+Używając poprawnych semantycznie tagów HTML5 zaproponuj:
+a) stronę bloga w oparciu o "DO_A_BLOG.jpg";
+b) formę w oparciu o "DO_A_FORM.PNG".
+
+W zadaniu chodzi wyłącznie o użycie poprawnych/nowych tagów dostępnych w HTML5. Ocenie nie będą podlegać style/rozbudowana funkcjonalność.

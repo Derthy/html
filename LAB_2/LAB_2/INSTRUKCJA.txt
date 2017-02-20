@@ -1,0 +1,24 @@
+FILES:
+- index.html - Unformatted HTML code. Requires adding your styles.
+- priorities.png - Simple spritesheet. Image should be used as background for article headers.
+- lab.png - Final design. Use your knowledge to convert the raw HTML file to this.
+- lab-sizes.png - Design with sizes. Each color represents one size.
+
+DESCRIPTION:
+The provided HTML file is almost completely unformatted. There is a <style> tag in the header - add your styles there. In this package you will find 2 PNG files. One is the design and the other is the design with marked sizes of all spaces. Each size uses a different color. Keep in mind that paddings have a background like the content-box and that margins collapse vertically. The red border around the design is just to show you the edges of the document. Be aware that the document area is not just the column. The column width is half of the document width. Header and footer borders are not marked with size-boxes - define them as 3px wide. Look carefully at the number of lines on the design. Some elements are cut-off at a certain height. To compare your work with the design you can set your window size to match the design. The inner width of the design is approx. 966px. The font size is only set for the body element. The headers use browser-specific sizes. If you think that those sizes differ from the design set them manually. Here are the rules (with pseudo-selectors):
+
+[H1 USED IN THE DOCUMENT HEADER] {
+  font-size: 32px;
+}
+
+[H1 USED IN THE ARTICLE HEADER] {
+  font-size: 19px;
+}
+
+COLORS:
+- Header text and border: #47c,
+- Footer text and border: silver,
+- In articles:
+    - .prio-high: #c44,
+    - .prio-low: #4b4,
+    - "class-less": font color.
