@@ -17,6 +17,7 @@
           Add new entry
         </button>
 
+
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
@@ -49,6 +50,44 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button onclick="insert()" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+                <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelEd">Edit entry</h4>
+              </div>
+              <div class="modal-body">
+                <p id="IDEd" hidden></p>
+                <input type="text" id="titleEd" class="form-control" placeholder="Title">
+                <textarea id="descEd" class="form-control" rows="3" placeholder="Description"></textarea>
+                <form class="form-inline">
+                        <p class="form-control-static">Day</p>
+                        <select class="form-control" id="DayEd"></select>
+                </form>
+                <form class="form-inline">
+                        <p class="form-control-static">Begin Time</p>
+                        <select class="form-control" id="BeginHourEd"></select>
+                        <input class="form-control" id="EndMinutesEd" placeholder="15" disabled>
+                </form>
+                <form class="form-inline">
+                        <p class="form-control-static" style="margin-right:31px;">End Time</p>
+                    <div class="form-group">
+                        <select class="form-control" id="EndHourEd"></select>
+                        <input class="form-control" id="EndMinutesEd" placeholder="15" disabled>
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button onclick="remove()" type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
+                <button onclick="update()" type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
               </div>
             </div>
           </div>

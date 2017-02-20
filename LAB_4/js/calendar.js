@@ -14,21 +14,27 @@ days[6] = "Sunday";
 $(document).ready(function(){
 
     for(i=8;i<19;i++){
-        if(i<10)
-            $('#BeginHour').append("<option>"+i+"</option>");
-        else
-            $('#BeginHour').append("<option>"+i+"</option>");
+        $('#BeginHour').append("<option>"+i+"</option>");
     }
     
     for(i=8;i<19;i++){
-        if(i<10)
-            $('#EndHour').append("<option>"+i+"</option>");
-        else
-            $('#EndHour').append("<option>"+i+"</option>");
+        $('#EndHour').append("<option>"+i+"</option>");
     }
 
     for (var i=0; i<7; i++){
         $('#Day').append("<option>"+days[i]+"</option>");
+    }
+
+    for(i=8;i<19;i++){
+        $('#BeginHourEd').append("<option>"+i+"</option>");
+    }
+    
+    for(i=8;i<19;i++){
+        $('#EndHourEd').append("<option>"+i+"</option>");
+    }
+
+    for (var i=0; i<7; i++){
+        $('#DayEd').append("<option>"+days[i]+"</option>");
     }
 
     createTable();
@@ -85,11 +91,6 @@ function insert(){
     });
 }
 
-function addElement(lenght,cell,margin,id){
-    var htmlValue = document.getElementById(cell+"x8").outerHTML;
-    document.getElementById(cell+"x8").innerHTML = htmlValue + "<button id="+id+" style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">Save changes</button>";
-}
-
 function view(){
 
     //document.getElementById("added").remove();
@@ -105,15 +106,62 @@ function view(){
                 var lenght = end - begin;
                 var cell = tmp[x]['DAY'];
                 var title = tmp[x]['TITLE'];
+                var desc = tmp[x]['DESCRIPTION'];
                 var id = tmp[x]['ID'];
                 var margin = (begin - 8)*300;
 
                 var htmlValue = document.getElementById(cell+"x8").outerHTML;
 
                 if(document.getElementById(id) == null)
-                document.getElementById(cell+"x8").innerHTML = htmlValue + "<button id="+id+" style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">"+title+"</button>";
+                document.getElementById(cell+"x8").innerHTML = htmlValue + "<button id="+id+" onClick=\"edit('"+id+"','"+title+"','"+desc+"','"+cell+"','"+begin+"','"+end+"')\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" data-target=\"#editModal\" data-dismiss=\"modal\" style=\"width:"+(lenght*300)+"px;margin-left:"+margin+"px\" type=\"button\" class=\"btn btn-primary\">"+title+"</button>";
               }
             }
         }
     });
+}
+
+function edit(id,title,desc,day,begin,end){
+    document.getElementById('IDEd').value=id;
+    document.getElementById('titleEd').value=title;
+    document.getElementById('descEd').value=desc;
+    document.getElementById('DayEd').value=days[day-1];
+    document.getElementById('BeginHourEd').value=begin;
+    document.getElementById('EndHourEd').value=end;
+}
+
+function update(){
+    var id = document.getElementById("IDEd").value;
+    var begin = document.getElementById("BeginHourEd").value;
+    var end = document.getElementById("EndHourEd").value;
+    var cell = days.indexOf(document.getElementById("DayEd").value)+1;
+    var title = document.getElementById("titleEd").value;
+    var desc = document.getElementById("descEd").value;
+
+    document.getElementById(id).remove();
+
+    var data = {ID:id,TITLE:title,DESCRIPTION:desc,DAY:cell,BEGIN_TIME: begin, END_TIME: end}; 
+    $.ajax({
+        type: "POST",
+        url: "server.php?p=update",
+        data: data,
+        success: function(msg){
+            view();
+        }
+    });
+}
+
+function remove(){
+    var id = document.getElementById("IDEd").value;
+
+    var data = {ID:id}; 
+    $.ajax({
+        type: "POST",
+        url: "server.php?p=delete",
+        data: data,
+        success: function(msg){
+            view();
+        }
+    });
+
+    document.getElementById(id).remove();
 }
